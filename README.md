@@ -18,19 +18,19 @@ cd cad-floorplan-dataset
 python fetch_dataset.py
 ```
 
-脚本只需 Python 3.9+ 标准库，会下载 5 个独立 ZIP 包、逐包核对 SHA-256、解压到 `dataset/`，最后按 `FILES.csv` 逐文件核对大小和 SHA-256。成功下载的包可复用；中断包会重新下载。默认保留下载包，总磁盘空间建议预留至少 15 GB。
+脚本只需 Python 3.9+ 标准库，会下载 5 个独立 TAR.XZ 包、逐包核对 SHA-256、解压到 `dataset/`，最后按 `FILES.csv` 逐文件核对大小和 SHA-256。成功下载的包可复用；中断包会重新下载。默认保留下载包，总磁盘空间建议预留至少 15 GB。
 
 指定目录：`python fetch_dataset.py --output D:/CAD图纸数据 --downloads D:/CAD下载包`。
 
-也可以在 Release 中手动下载全部 ZIP，逐个解压到同一个目录。它们是独立 ZIP，**无需拼接**，保留内部的 `cubicasa5k/` 与 `pathfinder图/` 路径即可。
+也可以在 Release 中手动下载全部 TAR.XZ，逐个解压到同一个目录（Windows 可用 7-Zip 或 `tar -xf 包名.tar.xz`）。它们是独立 TAR.XZ，**无需拼接**，保留内部的 `cubicasa5k/` 与 `pathfinder图/` 路径即可。
 
 ## 文件清单
 
 | 文件 | 内容 |
 | --- | --- |
-| `FILES.csv` | 全部 22,265 个数据文件的相对路径、大小、SHA-256、所属 ZIP |
-| `dataset.json` | ZIP 文件名、大小、SHA-256、文件数与 Release 标签 |
-| `SHA256SUMS.txt` | ZIP 包 SHA-256 汇总 |
+| `FILES.csv` | 全部 22,265 个数据文件的相对路径、大小、SHA-256、所属压缩包 |
+| `dataset.json` | 压缩包文件名、大小、SHA-256、文件数与 Release 标签 |
+| `SHA256SUMS.txt` | TAR.XZ 包 SHA-256 汇总 |
 | `DATA_SOURCES.md` | 数据来源、上游许可和本地转换说明 |
 
 这是本地交接快照，未重新生成图纸或仿真结果，内部数据内容保持原样。解压后查看 `pathfinder图` 工程需要另行安装 Pathfinder。

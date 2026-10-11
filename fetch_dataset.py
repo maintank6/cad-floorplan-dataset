@@ -4,7 +4,7 @@ import argparse
 import csv
 import json
 import shutil
-import zipfile
+import tarfile
 from release_download import download_asset, file_sha256
 
 
@@ -12,7 +12,7 @@ def main():
     root = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, default=root / 'dataset', help='Extraction directory')
-    parser.add_argument('--downloads', type=Path, default=root / 'downloads', help='ZIP download directory')
+    parser.add_argument('--downloads', type=Path, default=root / 'downloads', help='Archive download directory')
     parser.add_argument('--verify-only', action='store_true', help='Verify existing extracted files without downloading')
     args = parser.parse_args()
     output = args.output.resolve()
@@ -24,20 +24,22 @@ def main():
         for asset in manifest['assets']:
             archive = download_asset(manifest, asset, args.downloads / asset['name'])
             expected = {row['path']: row for row in rows if row['asset'] == asset['name']}
-            with zipfile.ZipFile(archive) as source:
-                if len(source.infolist()) != len(expected) or set(source.namelist()) != set(expected):
-                    raise ValueError(f'Archive file list mismatch: {asset["name"]}')
-                for entry in source.infolist():
-                    target = (output / entry.filename).resolve()
+            with tarfile.open(archive, 'r|xz') as source:
+                for entry in source:
+                    if not entry.isfile() or entry.name not in expected:
+                        raise ValueError(f'Archive file list mismatch: {entry.name}')
+                    row = expected.pop(entry.name)
+                    target = (output / entry.name).resolve()
                     target.relative_to(output)
                     target.parent.mkdir(parents=True, exist_ok=True)
                     partial = target.with_name(target.name + '.partial')
-                    with source.open(entry) as reader, partial.open('wb') as writer:
+                    with source.extractfile(entry) as reader, partial.open('wb') as writer:
                         shutil.copyfileobj(reader, writer, length=1024 * 1024)
-                    if (partial.stat().st_size != int(expected[entry.filename]['size'])
-                            or file_sha256(partial) != expected[entry.filename]['sha256']):
-                        raise ValueError(f'Extracted file mismatch: {entry.filename}')
+                    if partial.stat().st_size != int(row['size']) or file_sha256(partial) != row['sha256']:
+                        raise ValueError(f'Extracted file mismatch: {entry.name}')
                     partial.replace(target)
+            if expected:
+                raise ValueError(f'Archive is missing files: {asset["name"]}')
             print(f'Extracted and verified: {asset["name"]}', flush=True)
     print(f'Verifying {len(rows):,} dataset files...', flush=True)
     for index, row in enumerate(rows, 1):

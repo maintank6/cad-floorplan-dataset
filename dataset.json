@@ -5,34 +5,35 @@
   "uncompressed_bytes": 6169821441,
   "assets": [
     {
-      "name": "cad-floorplan-data-01-of-05.zip",
-      "size": 1361262436,
-      "sha256": "159c09a5167557d3dd1a59ee573c6acb5d325e929317cd1ada8b0d1ff8a3e640",
+      "name": "cad-floorplan-data-01-of-05.tar.xz",
+      "size": 1015977384,
+      "sha256": "75a34d7b4800b01d485efab6a0eee1169dc9f3affbaae244648bc7757c2b1389",
       "file_count": 6925
     },
     {
-      "name": "cad-floorplan-data-02-of-05.zip",
-      "size": 1400387297,
-      "sha256": "d3dca334af3a9ed8efa25c1c7cdfa4a8967d049b5a0db8af74961f0f3baa96f5",
+      "name": "cad-floorplan-data-02-of-05.tar.xz",
+      "size": 1086863760,
+      "sha256": "57e55a1fe1db7e3f2f19f1efe5e79d16f85288e526fe9221c6ef335b891d4a1f",
       "file_count": 4462
     },
     {
-      "name": "cad-floorplan-data-03-of-05.zip",
-      "size": 1377668016,
-      "sha256": "6d10c8bc32040469e663dd242fe2bf67718bf02ccc7277872eb6fe1ddabe8cfe",
+      "name": "cad-floorplan-data-03-of-05.tar.xz",
+      "size": 1012399080,
+      "sha256": "bdf5c50358904ffc0d82d75c24935b4214f01e0aa27ff2e2903fa9d3429d4cd0",
       "file_count": 5291
     },
     {
-      "name": "cad-floorplan-data-04-of-05.zip",
-      "size": 1385223362,
-      "sha256": "15392cb7400dc0c2f465719fc8f89f699209bd2ccf7c56037b49fa7f06dcd160",
+      "name": "cad-floorplan-data-04-of-05.tar.xz",
+      "size": 976372892,
+      "sha256": "dca2445db36036038dc8c1c1990de98a8f4f3cce2f0ed7ff5f82eacaad297fd9",
       "file_count": 4827
     },
     {
-      "name": "cad-floorplan-data-05-of-05.zip",
-      "size": 154209874,
-      "sha256": "3050e9d689a19d4550317bb6169e3cbd8a74f7326f8ac8d4b29aec51fd397510",
+      "name": "cad-floorplan-data-05-of-05.tar.xz",
+      "size": 103069320,
+      "sha256": "caf18fbe6bd805834eca7300c1538540647599bece20f10dd9bd8898e9b0e995",
       "file_count": 760
     }
-  ]
+  ],
+  "archive_format": "tar.xz"
 }
